@@ -8,9 +8,19 @@ const components = {
   container: 'pokemon-container'
 }
 
+function emptyPokemonContainer() {
+    document.getElementById(components.container).innerHTML = "";
+}
+
 document.getElementById(components.button).addEventListener("click", async () => {
-    const data = await getPokemonByName(document.getElementById(components.input).value)
-    createPokemonImage(data);
+    emptyPokemonContainer();
+    createPokemonImage(await getPokemonByName(document.getElementById(components.input).value));
+})
+
+document.getElementById(components.input).addEventListener("input", () => {
+    if (input.value === 0) {
+        document.getElementById(components.button).id = 'disabled';
+    }
 })
 
 async function getPokemonByName(pokemonName) {
@@ -25,8 +35,9 @@ async function getPokemonByName(pokemonName) {
 //Minden megjelenítés előtt, töröljük ki az aktuális pokemont
 
 function createPokemonImage(data) {
-    const pokemonImg = data.sprites.front_default;
-    const img = document.createElement('img');
-    img.src = pokemonImg;
-    document.getElementById(components.container).append(img)
+    document.getElementById(components.container).append(
+        Object.assign(document.createElement('img'), {
+        src: data.sprites.front_default,
+    })
+);
 }
