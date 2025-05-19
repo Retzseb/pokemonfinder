@@ -1,43 +1,69 @@
+// Házi feladat:
+// https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0
+// A fenti végpontot átalakítva képesek legyünk lekérni 0-9999-ig 
+// pokémonokat. Minden lekért pokemon képét jelenítsük meg!
+// A megejelenítés egy 5x5-ös gridben végezd el!
+// Használj css-t a grid kialakításához
+
 const OPTIONS = {
-  api: "https://pokeapi.co/api/v2/pokemon/"
-}
+  api: "https://pokeapi.co/api/v2/pokemon/",
+};
 
 const components = {
-  button: 'search-button',
-  input: 'search-input',
-  container: 'pokemon-container'
-}
-
-function emptyPokemonContainer() {
-    document.getElementById(components.container).innerHTML = "";
-}
+  button: "ok-button",
+  input: "search-input",
+  container: "pokemon-container",
+};
 
 document.getElementById(components.button).addEventListener("click", async () => {
-    emptyPokemonContainer();
-    createPokemonImage(await getPokemonByName(document.getElementById(components.input).value));
-})
+  const count = document.getElementById(components.input).value;
 
-document.getElementById(components.input).addEventListener("input", () => {
-    if (input.value === 0) {
-        document.getElementById(components.button).id = 'disabled';
-    }
-})
+  document.getElementById(components.container).innerHTML = ""; 
 
-async function getPokemonByName(pokemonName) {
-  const response = await fetch(`${OPTIONS.api}${pokemonName}`)
-  const data = await response.json()
-  return data;
+  for (let i = 1; i <= count; i++) {
+    const data = await getPokemonById(i);
+    createPokemonImage(data);
+  }
+});
+
+async function getPokemonById(id) {
+  return (await fetch(`${OPTIONS.api}${id}`)).json();
 }
-
-//tedd fel gitre
-//Refactor, rövidíts le bármit, amit tudsz
-//Oldjuk meg, ha nincs semmi beütve az input mezőbe, legyen letiltva a gomb
-//Minden megjelenítés előtt, töröljük ki az aktuális pokemont
 
 function createPokemonImage(data) {
-    document.getElementById(components.container).append(
-        Object.assign(document.createElement('img'), {
-        src: data.sprites.front_default,
-    })
-);
+  const img = document.createElement("img");
+  img.src = data.sprites.front_default;
+
+  document.getElementById(components.container).appendChild(img);
 }
+
+// const OPTIONS = {
+//   api: "https://pokeapi.co/api/v2/pokemon/",
+//   api2: "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0"
+// };
+
+// const components = {
+//   button: "search-button",
+//   input: "search-input",
+//   container: "pokemon-container",
+// };
+
+// document
+//   .getElementById(components.button)
+//   .addEventListener("click", async () => {
+//     createPokemonImage(await getPokemonByName(
+//         document.getElementById(components.input).value
+//       ));
+//   });
+
+// async function getPokemonByName(pokemonName) {
+//   return (await fetch(`${OPTIONS.api}${pokemonName}`)).json()
+// }
+
+// function createPokemonImage(data) {
+//   document.getElementById(components.container).append(
+//     Object.assign(document.createElement("img"), {
+//       src: data.sprites.front_default,
+//     })
+//   );
+// }

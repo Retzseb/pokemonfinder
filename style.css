@@ -1,3 +1,26 @@
-#disable {
-    
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: gainsboro;
+  padding: 1rem;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+input, button {
+  padding: .25rem;
+}
+
+#pokemon-container {
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+}
+
+#pokemon-container img {
+  margin: auto;
 }
