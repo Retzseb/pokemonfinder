@@ -1,6 +1,6 @@
 // Házi feladat:
 // https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0
-// A fenti végpontot átalakítva képesek legyünk lekérni 0-9999-ig 
+// A fenti végpontot átalakítva képesek legyünk lekérni 0-9999-ig
 // pokémonokat. Minden lekért pokemon képét jelenítsük meg!
 // A megejelenítés egy 5x5-ös gridben végezd el!
 // Használj css-t a grid kialakításához
@@ -15,16 +15,18 @@ const components = {
   container: "pokemon-container",
 };
 
-document.getElementById(components.button).addEventListener("click", async () => {
-  const count = document.getElementById(components.input).value;
+document
+  .getElementById(components.button)
+  .addEventListener("click", async () => {
+    const count = document.getElementById(components.input).value;
 
-  document.getElementById(components.container).innerHTML = ""; 
+    document.getElementById(components.container).innerHTML = "";
 
-  for (let i = 1; i <= count; i++) {
-    const data = await getPokemonById(i);
-    createPokemonImage(data);
-  }
-});
+    for (let i = 1; i <= count; i++) {
+      const data = await getPokemonById(i);
+      createPokemonImage(data);
+    }
+  });
 
 async function getPokemonById(id) {
   return (await fetch(`${OPTIONS.api}${id}`)).json();
@@ -35,7 +37,13 @@ function createPokemonImage(data) {
   img.src = data.sprites.front_default;
 
   document.getElementById(components.container).appendChild(img);
-}
+
+  const p = document.createElement("p")
+  p.innerText = data.species.name;
+  console.log(p)
+  document.getElementById(components.container).append(p);
+  }
+
 
 // const OPTIONS = {
 //   api: "https://pokeapi.co/api/v2/pokemon/",
