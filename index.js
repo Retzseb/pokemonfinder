@@ -7,22 +7,28 @@
 
 const OPTIONS = {
   api: "https://pokeapi.co/api/v2/pokemon/",
+  // api: "https://pokeapi.co/api/v2/pokemon?limit={limit}offset={start}",
 };
 
 const components = {
   button: "ok-button",
-  input: "search-input",
+  limit: "limit-input",
+  start: "start-input",
   container: "pokemon-container",
 };
 
 document
   .getElementById(components.button)
   .addEventListener("click", async () => {
-    const count = document.getElementById(components.input).value;
+    const count = document.getElementById(components.limit).value;
+    const start = document.getElementById(components.start).value;
+    const limit = parseInt(start) + parseInt(count);
+    console.log(limit);
 
     document.getElementById(components.container).innerHTML = "";
 
-    for (let i = 1; i <= count; i++) {
+    for (let i = start; i <= limit - 1; i++) {
+      0;
       const data = await getPokemonById(i);
       createPokemonImage(data);
     }
@@ -38,12 +44,14 @@ function createPokemonImage(data) {
 
   document.getElementById(components.container).appendChild(img);
 
-  const p = document.createElement("p")
+  const p = document.createElement("p");
   p.innerText = data.species.name;
-  console.log(p)
   document.getElementById(components.container).append(p);
-  }
 
+  const div = document.createElement("div");
+  div.append(img, p);
+  document.getElementById(components.container).append(div);
+}
 
 // const OPTIONS = {
 //   api: "https://pokeapi.co/api/v2/pokemon/",

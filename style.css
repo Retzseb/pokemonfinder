@@ -7,21 +7,27 @@
 body {
   background-color: gainsboro;
   padding: 1rem;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 12px;
 }
 
-input, button {
-  padding: .25rem;
+input,
+button {
+  padding: 0.25rem;
 }
 
 #pokemon-container {
   margin: auto;
+  margin-top: 1rem;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 0.5rem;
   text-align: center;
 }
 
-#pokemon-container img {
+#pokemon-container img,
+p {
   margin: auto;
+  gap: 0.5rem;
 }
